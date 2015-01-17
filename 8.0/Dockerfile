@@ -38,6 +38,9 @@ RUN curl -o odoo.deb -SL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odo
 RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 0xdef2a2198183cbb5 \
         && echo "deb http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/ ./" >> /etc/apt/sources.list
 
+# Clean some space
+RUN rm -rf /var/lib/apt/lists/* && /var/cache/apt/archives/*.deb
+
 # Run script and Odoo configuration file
 COPY ./run.sh /
 COPY ./openerp-server.conf /etc/odoo/
